@@ -1,0 +1,42 @@
+[
+  {
+    "query": "Create a new skill for summarizing API incident reports into a weekly markdown report.",
+    "should_trigger": true,
+    "notes": "Direct request to create a skill."
+  },
+  {
+    "query": "I have an existing SKILL.md, can you tighten the description so it triggers more reliably?",
+    "should_trigger": true,
+    "notes": "Description optimization should trigger."
+  },
+  {
+    "query": "Can you scaffold a skill directory with SKILL.md, references, and a starter template for database migration reviews?",
+    "should_trigger": true,
+    "notes": "Scaffolding request should trigger."
+  },
+  {
+    "query": "I need help turning a working agent conversation into a reusable Agent Skills-standard skill.",
+    "should_trigger": true,
+    "notes": "Non-obvious but in-scope phrasing."
+  },
+  {
+    "query": "Write a Python function that parses YAML frontmatter from markdown.",
+    "should_trigger": false,
+    "notes": "Adjacent implementation task, not skill creation."
+  },
+  {
+    "query": "Can you improve this markdown README?",
+    "should_trigger": false,
+    "notes": "Too broad and not specifically about creating a skill."
+  },
+  {
+    "query": "Make a bash script that validates JSON files in this repo.",
+    "should_trigger": false,
+    "notes": "Script creation alone is not enough."
+  },
+  {
+    "query": "Review my prompt template for a code-review assistant.",
+    "should_trigger": false,
+    "notes": "Related artifact, but not a skill unless the request is explicitly about creating one."
+  }
+]
