@@ -1,3 +1,5 @@
+// Archived comparison asset. Original role: Product Copilot Neo4j query patterns.
+// Current default backend is LadybugDB.
 // Product Copilot Neo4j query patterns
 // Purpose: validate the ontology against real retrieval needs.
 // Assumes the schema from 06-neo4j-bootstrap.cypher has already been applied.

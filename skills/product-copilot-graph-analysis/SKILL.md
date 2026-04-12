@@ -29,6 +29,8 @@ Do not use it for:
 2. Map the question to the smallest matching retrieval pattern.
 3. Read the ontology or backend guidance only as needed:
    - `../../research/product-copilot/05-ontology-v0.yaml`
+   - `../../research/product-copilot/06-ladybugdb-schema.cypher`
+   - `../../research/product-copilot/07-ladybugdb-query-patterns.cypher`
    - `../../research/product-copilot/09-agent-tooling.md`
    - `../../research/product-copilot/11-ladybugdb-evaluation.md`
    - `../ladybugdb/references/notes.md`
@@ -49,6 +51,7 @@ Do not use it for:
 ## Defaults
 
 - Default graph dialect: **LadybugDB Cypher**
+- Default query asset: `../../research/product-copilot/07-ladybugdb-query-patterns.cypher`
 - Default starting point: an exact `id` such as `FEAT-001`, `REQ-001`, `WP-001`, `INC-001`, or `REL-001`
 - Prefer question-shaped traces over general graph dumps
 - Prefer named or versioned query templates over ad hoc console-style querying
@@ -56,6 +59,7 @@ Do not use it for:
 ## Gotchas
 
 - LadybugDB is schema-first and stricter than service-style property-graph defaults; do not assume label or property flexibility.
+- The active LadybugDB scaffold uses endpoint-specific relationship names such as `IMPLEMENTS_REQUIREMENT` and `PRODUCES_RELEASE`; do not blindly reuse generic conceptual edge names from archived service-database assets.
 - Keep retrieval bounded; do not render or retrieve the whole graph unless the user explicitly asks.
 - Missing trace links are often the answer; do not hide them behind a smooth narrative.
 - Keep business, architecture, and operations layers distinct in the explanation.
@@ -99,6 +103,8 @@ Use these defaults:
 
 - Read `references/query-intents.md` when mapping a user question to a graph retrieval pattern.
 - Read `../../research/product-copilot/05-ontology-v0.yaml` when label or edge semantics are unclear.
+- Read `../../research/product-copilot/06-ladybugdb-schema.cypher` when executable node/edge names are unclear.
+- Read `../../research/product-copilot/07-ladybugdb-query-patterns.cypher` when adapting or selecting a Product Copilot LadybugDB query.
 - Read `../../research/product-copilot/09-agent-tooling.md` when selecting tool shapes or bounded retrieval patterns.
 - Read `../../research/product-copilot/11-ladybugdb-evaluation.md` for Product Copilot backend rationale and runtime caveats.
 - Read `../ladybugdb/references/notes.md` when LadybugDB syntax, loading, or concurrency details matter.

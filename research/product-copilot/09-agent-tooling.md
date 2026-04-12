@@ -50,7 +50,7 @@ Output:
 - optional lightweight graph projection
 
 Guardrails:
-- reject write or mutation clauses: `CREATE`, `MERGE`, `SET`, `DELETE`, `REMOVE`, `DROP`, `COPY`, `IMPORT`, `EXPORT`, `INSTALL`
+- reject write, schema, or external-I/O clauses: `CREATE`, `MERGE`, `SET`, `DELETE`, `REMOVE`, `DROP`, `COPY`, `LOAD`, `IMPORT`, `EXPORT`, `ATTACH`, `INSTALL`
 - apply timeout and row limits
 
 #### `graph_get_subgraph`
@@ -227,14 +227,18 @@ Use LadybugDB-compatible query and runtime patterns:
 - keep one shared owning `Database` object per `.lbug` file in the process that manages reads/writes
 - keep parameterized queries in versioned `.cypher` files or named templates where possible
 - model retrieval against the explicit ontology and one-label-per-node/relationship constraint
+- prefer endpoint-specific relationship templates when a conceptual ontology verb fans out across heterogeneous source/target pairs
 - load required LadybugDB extensions explicitly in each new process or session before using extension-backed features
 - validate Cypher syntax against the exact LadybugDB version in use
 
 Current project assets:
 
 - `05-ontology-v0.yaml`
+- `06-ladybugdb-schema.cypher`
+- `07-ladybugdb-query-patterns.cypher`
+- `08-ladybugdb-sample-data.cypher`
 - `11-ladybugdb-evaluation.md`
-- `07b-memgraph-query-patterns.cypher` and `08-sample-data-memgraph.cypher` as archived comparison assets only
+- `archive/` for Neo4j and Memgraph comparison assets only
 
 ## 6. Access policy recommendation
 

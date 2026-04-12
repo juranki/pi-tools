@@ -1,3 +1,5 @@
+// Archived comparison asset. Original role: Product Copilot sample data for Memgraph.
+// Current default backend is LadybugDB.
 // Product Copilot sample data for Memgraph
 // Purpose: provide a small but connected dataset that exercises the ontology,
 // bootstrap constraints, and 07b-memgraph-query-patterns.cypher.

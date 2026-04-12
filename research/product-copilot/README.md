@@ -24,14 +24,13 @@ The target system has three major capabilities:
 - `03-graph-schema.md` — suggested graph model for product development knowledge
 - `04-work-package-spec.md` — work package format for autonomous execution
 - `05-ontology-v0.yaml` — machine-readable ontology for entities, relationships, properties, and lifecycle states
-- `06-neo4j-bootstrap.cypher` — archived Neo4j bootstrap comparison asset generated from the ontology
-- `06b-memgraph-bootstrap.cypher` — archived Memgraph bootstrap comparison asset
-- `07-neo4j-query-patterns.cypher` — archived Neo4j query pattern examples for traceability and retrieval use cases
-- `07b-memgraph-query-patterns.cypher` — archived Memgraph/openCypher query pattern examples retained for comparison and portability work
-- `08-sample-data-memgraph.cypher` — archived Memgraph sample dataset retained for comparison and porting ideas
+- `06-ladybugdb-schema.cypher` — LadybugDB-first schema scaffold derived from the ontology for the current Product Copilot MVP slice
+- `07-ladybugdb-query-patterns.cypher` — LadybugDB-first bounded query patterns aligned to the scaffold schema
+- `08-ladybugdb-sample-data.cypher` — compact LadybugDB sample dataset for exercising the scaffold schema and queries
 - `09-agent-tooling.md` — recommended tool surface for safe agent access to the graph, updated for LadybugDB-first execution
 - `10-human-visualizations.md` — visualization catalog for human-facing product, delivery, and operations views
 - `11-ladybugdb-evaluation.md` — decision basis and implementation guidance for adopting LadybugDB as the current default backend
+- `archive/README.md` — archived Neo4j and Memgraph comparison assets retained for portability/reference work
 
 ## Recommended framing
 
@@ -83,15 +82,19 @@ Suggested implementation shape:
 
 1. add `@ladybugdb/core` to the owning Node.js package or pi extension
 2. open a project-local database such as `./.state/product-copilot.lbug`
-3. expose bounded read tools first
-4. add controlled writes only after traceability queries and policy checks are stable
+3. apply or adapt `06-ladybugdb-schema.cypher`
+4. load `08-ladybugdb-sample-data.cypher` when you need a compact local fixture dataset
+5. expose bounded read tools first
+6. add controlled writes only after traceability queries and policy checks are stable
 
 For detailed integration notes, see:
 
 - `11-ladybugdb-evaluation.md`
+- `06-ladybugdb-schema.cypher`
+- `07-ladybugdb-query-patterns.cypher`
 - `../../skills/ladybugdb/`
 
-The Neo4j- and Memgraph-oriented `.cypher` files are retained only as archived comparison assets; they are no longer the default implementation path.
+Archived Neo4j and Memgraph comparison assets now live under `archive/`; they are retained for portability/reference work only.
 
 ## Companion skills
 

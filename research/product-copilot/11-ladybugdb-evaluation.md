@@ -539,6 +539,7 @@ Why:
 
 - model the Product Copilot ontology in Ladybug tables
 - keep the database project-local
+- start from `06-ladybugdb-schema.cypher`, `07-ladybugdb-query-patterns.cypher`, and `08-ladybugdb-sample-data.cypher`, then extend from there
 - build read-only graph tools first
 - use Ladybug for fixtures, tests, and agent-local graph reasoning
 

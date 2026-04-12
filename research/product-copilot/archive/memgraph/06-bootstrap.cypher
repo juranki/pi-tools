@@ -1,3 +1,5 @@
+// Archived comparison asset. Original role: Product Copilot Memgraph bootstrap.
+// Current default backend is LadybugDB.
 // Product Copilot Memgraph bootstrap
 // Generated from research/product-copilot/05-ontology-v0.yaml
 // Target: Memgraph Community / Free Edition

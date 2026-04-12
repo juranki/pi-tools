@@ -92,4 +92,5 @@ Do not use it for:
 
 - Read `../../research/product-copilot/10-human-visualizations.md` when selecting the view family.
 - Read `assets/visualization-spec-template.md` when producing a reusable implementation-ready spec.
+- Read `../../research/product-copilot/07-ladybugdb-query-patterns.cypher` when a view needs concrete backing retrieval examples.
 - Read `../../research/product-copilot/09-agent-tooling.md` when a view needs a concrete backing retrieval shape for the LadybugDB-backed graph.

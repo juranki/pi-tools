@@ -202,7 +202,26 @@ Suggested properties:
 - `(Postmortem)-[:UPDATES]->(Assessment)`
 - `(CostItem)-[:ATTRIBUTED_TO]->(Service)`
 
-## 4. Provenance model
+## 4. LadybugDB implementation profile
+
+The ontology in `05-ontology-v0.yaml` remains the conceptual source of truth.
+
+For LadybugDB-backed execution, the implementation schema should be slightly more explicit than the conceptual graph model:
+
+- keep **one node label per table**
+- prefer **endpoint-specific relationship table names** when the conceptual ontology reuses a verb across heterogeneous source/target pairs
+- derive the executable schema from the ontology, but do not force every conceptual edge name to map 1:1 to a single LadybugDB relationship table
+
+Examples:
+
+- conceptual `IMPLEMENTS` may become `IMPLEMENTS_CAPABILITY` and `IMPLEMENTS_REQUIREMENT`
+- conceptual `REALIZES` may become `REALIZES_OUTCOME` and `REALIZES_PLATEAU`
+- conceptual `PRODUCES` may become `PRODUCES_DELIVERABLE` and `PRODUCES_RELEASE`
+- conceptual `ALLOCATED_TO` may become `ALLOCATED_TO_SERVICE`, `ALLOCATED_TO_COMPONENT`, and similar endpoint-specific tables
+
+This keeps the conceptual model readable while making the executable LadybugDB schema unambiguous and easier to maintain.
+
+## 5. Provenance model
 
 Every important node should be attributable.
 
@@ -224,7 +243,7 @@ Useful provenance edges:
 - `[:CITED_BY]`
 - `[:SUPERSEDES]`
 
-## 5. Minimal work package fields
+## 6. Minimal work package fields
 
 Each `WorkPackage` should at least include:
 
@@ -249,7 +268,7 @@ Useful ArchiMate-aligned fields:
 - `target_plateau`
 - `produces_deliverable`
 
-## 6. Retrieval patterns the graph should support
+## 7. Retrieval patterns the graph should support
 
 The graph should make these questions easy:
 

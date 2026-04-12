@@ -1,3 +1,5 @@
+// Archived comparison asset. Original role: Product Copilot Neo4j bootstrap.
+// Current default backend is LadybugDB.
 // Product Copilot Neo4j bootstrap
 // Generated from research/product-copilot/05-ontology-v0.yaml
 // Target: Neo4j 5.x
