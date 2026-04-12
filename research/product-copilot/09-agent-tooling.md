@@ -1,6 +1,6 @@
 # Agent Tooling for Graph Access
 
-This document defines the **minimum tool surface** an agent should have for working against the Product Copilot graph in Memgraph.
+This document defines the **minimum tool surface** an agent should have for working against the Product Copilot graph in LadybugDB.
 
 ## 1. Design principle
 
@@ -38,7 +38,7 @@ Best use:
 #### `graph_run_query`
 
 Purpose:
-- run parameterized read-only Cypher
+- run parameterized read-only Cypher through LadybugDB
 
 Inputs:
 - `query`
@@ -50,7 +50,7 @@ Output:
 - optional lightweight graph projection
 
 Guardrails:
-- reject write clauses: `CREATE`, `MERGE`, `SET`, `DELETE`, `REMOVE`, `DROP`
+- reject write or mutation clauses: `CREATE`, `MERGE`, `SET`, `DELETE`, `REMOVE`, `DROP`, `COPY`, `IMPORT`, `EXPORT`, `INSTALL`
 - apply timeout and row limits
 
 #### `graph_get_subgraph`
@@ -219,19 +219,22 @@ Why:
 }
 ```
 
-## 5. Practical Memgraph implementation notes
+## 5. Practical LadybugDB implementation notes
 
-Use Memgraph-compatible query style:
+Use LadybugDB-compatible query and runtime patterns:
 
-- prefer `OPTIONAL MATCH + aggregation`
-- avoid Neo4j-specific existential subqueries in shared query assets
-- keep parameterized queries in versioned `.cypher` files where possible
+- prefer prepared statements for all user-supplied values
+- keep one shared owning `Database` object per `.lbug` file in the process that manages reads/writes
+- keep parameterized queries in versioned `.cypher` files or named templates where possible
+- model retrieval against the explicit ontology and one-label-per-node/relationship constraint
+- load required LadybugDB extensions explicitly in each new process or session before using extension-backed features
+- validate Cypher syntax against the exact LadybugDB version in use
 
 Current project assets:
 
-- `07b-memgraph-query-patterns.cypher`
-- `08-sample-data-memgraph.cypher`
 - `05-ontology-v0.yaml`
+- `11-ladybugdb-evaluation.md`
+- `07b-memgraph-query-patterns.cypher` and `08-sample-data-memgraph.cypher` as archived comparison assets only
 
 ## 6. Access policy recommendation
 
@@ -275,7 +278,7 @@ That is enough to support most assistant use cases without exposing a fully open
 
 ## 8. Immediate next build steps
 
-1. implement a read-only Memgraph adapter
+1. implement a read-only LadybugDB adapter
 2. wrap approved query templates as named operations
 3. return both table results and graph projections
 4. add audit logging for every tool invocation

@@ -2,6 +2,8 @@
 
 ## Executive summary
 
+Decision status: **adopted as the current default backend for Product Copilot prototyping and local-first workflows**.
+
 If the main goal is **simplicity and lightness for development, testing, and day-to-day operations**, LadybugDB is a strong candidate for Product Copilot.
 
 Why:
@@ -436,7 +438,7 @@ Recommended progression:
 4. `ladybug_query_readonly`
 5. controlled write/import tools later
 
-This mirrors the tool-shaping guidance already present in `09-agent-tooling.md` for the Memgraph direction.
+This mirrors the broader tool-shaping guidance already present in `09-agent-tooling.md`.
 
 ---
 

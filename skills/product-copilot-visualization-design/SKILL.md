@@ -1,7 +1,7 @@
 ---
 name: product-copilot-visualization-design
 description: Use this skill when the user wants human-facing views, dashboards, graph slices, or reporting layouts for the Product Copilot graph, including strategy traces, requirement coverage views, work package control towers, release impact pages, or incident learning loops. It helps choose the audience, question, visual form, query shape, and interaction model. Do not use it for unrestricted BI sprawl or raw whole-graph rendering.
-compatibility: Requires the Product Copilot ontology and visualization guidance in ../../research/product-copilot.
+compatibility: Requires the Product Copilot ontology and visualization guidance in ../../research/product-copilot. Current default backend is LadybugDB.
 ---
 
 # Product Copilot Visualization Design
@@ -92,4 +92,4 @@ Do not use it for:
 
 - Read `../../research/product-copilot/10-human-visualizations.md` when selecting the view family.
 - Read `assets/visualization-spec-template.md` when producing a reusable implementation-ready spec.
-- Read `../../research/product-copilot/07b-memgraph-query-patterns.cypher` when a view needs a concrete backing retrieval.
+- Read `../../research/product-copilot/09-agent-tooling.md` when a view needs a concrete backing retrieval shape for the LadybugDB-backed graph.

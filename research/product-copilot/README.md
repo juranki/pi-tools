@@ -24,15 +24,14 @@ The target system has three major capabilities:
 - `03-graph-schema.md` — suggested graph model for product development knowledge
 - `04-work-package-spec.md` — work package format for autonomous execution
 - `05-ontology-v0.yaml` — machine-readable ontology for entities, relationships, properties, and lifecycle states
-- `06-neo4j-bootstrap.cypher` — Neo4j 5 bootstrap script with constraints and indexes generated from the ontology
-- `06b-memgraph-bootstrap.cypher` — Memgraph bootstrap script with uniqueness, existence constraints, and common indexes
-- `07-neo4j-query-patterns.cypher` — Neo4j query patterns for validating traceability and agent retrieval use cases
-- `07b-memgraph-query-patterns.cypher` — Memgraph/openCypher query patterns using compatibility-friendly OPTIONAL MATCH + aggregation
-- `08-sample-data-memgraph.cypher` — sample Memgraph dataset for exercising the ontology, bootstrap, and query patterns
-- `09-agent-tooling.md` — recommended tool surface for safe agent access to the graph
+- `06-neo4j-bootstrap.cypher` — archived Neo4j bootstrap comparison asset generated from the ontology
+- `06b-memgraph-bootstrap.cypher` — archived Memgraph bootstrap comparison asset
+- `07-neo4j-query-patterns.cypher` — archived Neo4j query pattern examples for traceability and retrieval use cases
+- `07b-memgraph-query-patterns.cypher` — archived Memgraph/openCypher query pattern examples retained for comparison and portability work
+- `08-sample-data-memgraph.cypher` — archived Memgraph sample dataset retained for comparison and porting ideas
+- `09-agent-tooling.md` — recommended tool surface for safe agent access to the graph, updated for LadybugDB-first execution
 - `10-human-visualizations.md` — visualization catalog for human-facing product, delivery, and operations views
-- `11-ladybugdb-evaluation.md` — evaluation of LadybugDB as an embedded graph option for Product Copilot, including pi extension implications
-- `compose.yaml` — local Memgraph + MAGE + Lab setup for Product Copilot
+- `11-ladybugdb-evaluation.md` — decision basis and implementation guidance for adopting LadybugDB as the current default backend
 
 ## Recommended framing
 
@@ -69,54 +68,40 @@ Cross-cutting across all phases:
 - governance and decision logging
 - provenance and evidence quality
 
-## Local Memgraph setup
+## Local LadybugDB setup
 
-A minimal Docker Compose setup is included in `compose.yaml` for running the official Memgraph image locally, plus Memgraph Lab.
+LadybugDB is embedded, so no Docker Compose stack is required for the default local Product Copilot workflow.
 
-Persisted host folders:
+Recommended local defaults:
 
-- `${HOME}/.local/state/product-copilot/memgraph/data`
-- `${HOME}/.local/state/product-copilot/memgraph/logs`
+- use a project-local `.lbug` database file for persistent development state
+- use `:memory:` for tests and short-lived fixtures
+- keep one owning process / `Database` object per database file
+- load required LadybugDB extensions explicitly in each new process or session
 
-Quick start:
+Suggested implementation shape:
 
-```bash
-cd research/product-copilot
-cp .env.example .env
+1. add `@ladybugdb/core` to the owning Node.js package or pi extension
+2. open a project-local database such as `./.state/product-copilot.lbug`
+3. expose bounded read tools first
+4. add controlled writes only after traceability queries and policy checks are stable
 
-docker compose up -d
-```
+For detailed integration notes, see:
 
-Connection endpoints:
+- `11-ladybugdb-evaluation.md`
+- `../../skills/ladybugdb/`
 
-- Bolt: `bolt://localhost:7687`
-- Memgraph port: `localhost:7444`
-- Memgraph Lab: <http://localhost:3000>
-
-The compose file runs Memgraph as `1000:1000` by default. Memgraph requires the process user to match the owner of the mounted data directory, so if your local user has a different uid/gid, set `MEMGRAPH_CONTAINER_USER` in `.env` to match.
-
-Stop Memgraph:
-
-```bash
-docker compose down
-```
-
-Use the Memgraph-specific files with the local Memgraph setup:
-
-- `06b-memgraph-bootstrap.cypher`
-- `07b-memgraph-query-patterns.cypher`
-- `08-sample-data-memgraph.cypher`
-
-The Neo4j-oriented files (`06-neo4j-bootstrap.cypher`, `07-neo4j-query-patterns.cypher`) are retained for comparison and portability, but should not be the default against Memgraph.
+The Neo4j- and Memgraph-oriented `.cypher` files are retained only as archived comparison assets; they are no longer the default implementation path.
 
 ## Companion skills
 
-- `../../skills/product-copilot-graph-analysis/` — skill for bounded Memgraph graph retrieval, tracing, and traceability analysis
+- `../../skills/ladybugdb/` — skill for LadybugDB setup, storage-mode choices, imports, and integration caveats
+- `../../skills/product-copilot-graph-analysis/` — skill for bounded LadybugDB graph retrieval, tracing, and traceability analysis
 - `../../skills/product-copilot-visualization-design/` — skill for designing audience-specific graph views and dashboards
 
 ## Suggested next research steps
 
-1. Implement the read-only graph tools defined in `09-agent-tooling.md` and bind them to the Memgraph instance.
+1. Implement the read-only graph tools defined in `09-agent-tooling.md` and bind them to an embedded LadybugDB instance.
 2. Validate the visualization catalog in `10-human-visualizations.md` against real product, architecture, and operations workflows.
 3. Define ingestion sources for evidence:
    - analyst reports
@@ -125,8 +110,7 @@ The Neo4j-oriented files (`06-neo4j-bootstrap.cypher`, `07-neo4j-query-patterns.
    - product analytics
    - architecture and code repositories
    - incident and operations data
-4. Refine the graph stack and query language strategy:
-   - Ladybug / Memgraph / Neo4j / PostgreSQL + graph layer / RDF stack
+4. Derive the LadybugDB schema, load path, and reusable query templates from `05-ontology-v0.yaml`, while keeping the graph model portable enough for a future service-backed backend if needed.
 5. Define autonomous work package boundaries:
    - what an agent may do without approval
    - what requires human review
