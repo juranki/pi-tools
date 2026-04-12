@@ -1,0 +1,1245 @@
+ontology:
+  id: product-copilot-v0
+  version: 0.1.0
+  title: Product Copilot Ontology
+  description: >
+    Machine-readable ontology for a graph-backed product copilot that traces
+    market evidence through strategy, requirements, architecture, delivery,
+    operations, and learning.
+  modeling_style: labeled_property_graph
+  status: draft
+  principles:
+    - preserve provenance for every important fact
+    - separate evidence from inference and decision
+    - keep strategy distinct from implementation detail
+    - model target states, gaps, and migration work explicitly
+    - make autonomous execution policy-carrying and verifiable
+
+layers:
+  - id: discovery
+    description: Raw and normalized market, customer, competitor, and operational inputs.
+  - id: evidence
+    description: Claims, assumptions, experiments, and decisions grounded in evidence.
+  - id: motivation_strategy
+    description: Why change is needed and what outcomes, capabilities, and principles guide it.
+  - id: product_definition
+    description: Customer-facing framing of jobs, journeys, features, KPIs, and release goals.
+  - id: requirements
+    description: Testable expression of behavior, qualities, constraints, and risks.
+  - id: architecture
+    description: Structural allocation of requirements into services, components, interfaces, and environments.
+  - id: delivery_migration
+    description: Work decomposition, gaps, plateaus, deliverables, and execution control.
+  - id: operations_learning
+    description: Runtime behavior, incidents, telemetry, and learning loops.
+  - id: governance
+    description: Approval, compliance, control, and audit semantics.
+
+enums:
+  confidence_level:
+    - low
+    - medium
+    - high
+    - validated
+  review_status:
+    - unreviewed
+    - machine_extracted
+    - human_reviewed
+    - approved
+    - rejected
+  risk_level:
+    - low
+    - medium
+    - high
+    - critical
+  priority_level:
+    - low
+    - medium
+    - high
+    - critical
+  autonomy_level:
+    - assistive
+    - drafting
+    - bounded_execution
+    - managed_autonomy
+    - human_only
+  requirement_kind:
+    - business
+    - stakeholder
+    - system
+    - functional
+    - quality_attribute
+    - security
+    - compliance
+  work_package_type:
+    - research
+    - decision
+    - spec
+    - code
+    - test
+    - ops
+    - review
+    - migration
+  artifact_kind:
+    - code
+    - spec
+    - test
+    - runbook
+    - config
+    - schema
+    - dashboard
+    - adr
+    - migration
+    - dataset
+  service_kind:
+    - business
+    - application
+    - technology
+  environment_kind:
+    - local
+    - ci
+    - development
+    - staging
+    - production
+  signal_kind:
+    - market
+    - customer
+    - competitor
+    - product_usage
+    - sales
+    - support
+    - operational
+    - financial
+  metric_kind:
+    - business
+    - product
+    - engineering
+    - reliability
+    - security
+    - cost
+
+status_profiles:
+  knowledge_record:
+    - draft
+    - active
+    - superseded
+    - retired
+  evidence_record:
+    - collected
+    - normalized
+    - reviewed
+    - accepted
+    - rejected
+  decision_record:
+    - proposed
+    - accepted
+    - rejected
+    - superseded
+  experiment_record:
+    - planned
+    - running
+    - completed
+    - cancelled
+  requirement_record:
+    - draft
+    - approved
+    - implemented
+    - verified
+    - retired
+  change_record:
+    - identified
+    - planned
+    - in_progress
+    - completed
+    - cancelled
+  work_package_record:
+    - backlog
+    - ready
+    - in_progress
+    - blocked
+    - in_review
+    - done
+    - cancelled
+  review_record:
+    - pending
+    - passed
+    - failed
+    - waived
+  release_record:
+    - planned
+    - built
+    - staged
+    - released
+    - rolled_back
+    - retired
+  incident_record:
+    - detected
+    - triaged
+    - mitigated
+    - resolved
+    - reviewed
+  governance_record:
+    - proposed
+    - active
+    - suspended
+    - retired
+
+property_schema:
+  id:
+    type: string
+    required: true
+    description: Globally unique stable identifier.
+  title:
+    type: string
+    required: true
+    description: Human-readable short label.
+  summary:
+    type: text
+    required: false
+    description: Concise description or normalized abstract.
+  status:
+    type: string
+    required: true
+    description: Status constrained by the entity type's status_profile.
+  owner:
+    type: string
+    required: false
+    description: Responsible person, team, or agent.
+  tags:
+    type: list[string]
+    required: false
+    description: Free-form classification tags.
+  created_at:
+    type: datetime
+    required: false
+  updated_at:
+    type: datetime
+    required: false
+  source_uri:
+    type: string
+    required: false
+    description: URI or canonical locator of origin.
+  source_type:
+    type: string
+    required: false
+    description: Internal, web, analyst_report, support_ticket, repo, telemetry, and so on.
+  collected_at:
+    type: datetime
+    required: false
+  collector:
+    type: string
+    required: false
+    description: Agent or human that collected the record.
+  extraction_method:
+    type: string
+    required: false
+    description: Manual, parser, scraper, LLM extraction, ETL job, and so on.
+  confidence:
+    type: confidence_level
+    required: false
+  review_status:
+    type: review_status
+    required: false
+  version:
+    type: string
+    required: false
+  external_ref:
+    type: string
+    required: false
+    description: External system ID or URL.
+  priority:
+    type: priority_level
+    required: false
+  kind:
+    type: string
+    required: false
+  rationale:
+    type: text
+    required: false
+  hypothesis:
+    type: text
+    required: false
+  business_impact:
+    type: text
+    required: false
+  user_impact:
+    type: text
+    required: false
+  metric_definition:
+    type: text
+    required: false
+  formula:
+    type: text
+    required: false
+  target_value:
+    type: string
+    required: false
+  current_value:
+    type: string
+    required: false
+  threshold:
+    type: string
+    required: false
+  requirement_kind:
+    type: requirement_kind
+    required: false
+  risk_level:
+    type: risk_level
+    required: false
+  autonomy_level:
+    type: autonomy_level
+    required: false
+  work_package_type:
+    type: work_package_type
+    required: false
+  artifact_kind:
+    type: artifact_kind
+    required: false
+  service_kind:
+    type: service_kind
+    required: false
+  environment_kind:
+    type: environment_kind
+    required: false
+  signal_kind:
+    type: signal_kind
+    required: false
+  metric_kind:
+    type: metric_kind
+    required: false
+  objective:
+    type: text
+    required: false
+  scope:
+    type: text
+    required: false
+  inputs:
+    type: json
+    required: false
+  outputs:
+    type: json
+    required: false
+  constraints:
+    type: json
+    required: false
+  acceptance_checks:
+    type: list[string]
+    required: false
+  estimated_effort:
+    type: string
+    required: false
+  required_tools:
+    type: list[string]
+    required: false
+  required_permissions:
+    type: list[string]
+    required: false
+  allowed_tools:
+    type: list[string]
+    required: false
+  forbidden_actions:
+    type: list[string]
+    required: false
+  escalation_rules:
+    type: list[string]
+    required: false
+  data_classification:
+    type: string
+    required: false
+  retention_policy:
+    type: string
+    required: false
+  blast_radius:
+    type: string
+    required: false
+  owner_team:
+    type: string
+    required: false
+  query:
+    type: text
+    required: false
+  expression:
+    type: text
+    required: false
+
+entity_groups:
+  evidence_bearing:
+    - Source
+    - Document
+    - Signal
+    - Evidence
+    - Claim
+    - Assumption
+    - Experiment
+    - Result
+    - Decision
+    - Assessment
+    - Postmortem
+  strategy_elements:
+    - Driver
+    - Assessment
+    - Goal
+    - Outcome
+    - Principle
+    - CourseOfAction
+    - ValueStream
+    - Capability
+    - Opportunity
+    - KPI
+    - Feature
+    - Policy
+    - ReleaseGoal
+  architecture_elements:
+    - BusinessService
+    - ApplicationService
+    - TechnologyService
+    - BoundedContext
+    - Service
+    - Component
+    - API
+    - Event
+    - DataEntity
+    - Workflow
+    - Environment
+  work_items:
+    - Epic
+    - Story
+    - WorkPackage
+    - Task
+    - Review
+    - Gate
+  delivery_artifacts:
+    - Deliverable
+    - Artifact
+    - TestCase
+    - TestSuite
+    - Release
+  governance_elements:
+    - ApprovalPolicy
+    - ComplianceRequirement
+    - Control
+    - AuditRecord
+
+entity_types:
+  Source:
+    layer: discovery
+    status_profile: knowledge_record
+    required_properties: [id, title, status, source_type]
+    optional_properties: [summary, source_uri, collected_at, collector, review_status, tags]
+    description: Canonical origin for collected information.
+
+  Document:
+    layer: discovery
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, source_uri, source_type, version, collected_at, collector, review_status, tags]
+    description: A source artifact such as a report, pricing page snapshot, transcript, or repository file.
+
+  Signal:
+    layer: discovery
+    status_profile: evidence_record
+    required_properties: [id, title, status, signal_kind]
+    optional_properties: [summary, confidence, review_status, source_uri, collected_at, collector, tags]
+    description: Atomic observation extracted from a document or feed.
+
+  Evidence:
+    layer: evidence
+    status_profile: evidence_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, confidence, review_status, rationale, source_uri, collected_at, collector, tags]
+    description: Normalized supporting material usable for reasoning and citation.
+
+  Claim:
+    layer: evidence
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, confidence, rationale, review_status, tags]
+    description: Statement inferred from one or more evidence items.
+
+  Assumption:
+    layer: evidence
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, confidence, business_impact, user_impact, tags]
+    description: Unproven but decision-relevant belief.
+
+  Experiment:
+    layer: evidence
+    status_profile: experiment_record
+    required_properties: [id, title, status, objective]
+    optional_properties: [summary, hypothesis, metric_definition, target_value, owner, tags]
+    description: Test designed to validate or invalidate an assumption or opportunity.
+
+  Result:
+    layer: evidence
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, confidence, current_value, rationale, tags]
+    description: Outcome of an experiment, rollout, or analysis.
+
+  Decision:
+    layer: evidence
+    status_profile: decision_record
+    required_properties: [id, title, status, rationale]
+    optional_properties: [summary, owner, priority, review_status, tags]
+    description: Chosen direction with explicit rationale and supersession history.
+
+  Driver:
+    layer: motivation_strategy
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, business_impact, user_impact, priority, tags]
+    description: Reason for change such as market pressure, customer pain, risk, or strategy.
+
+  Assessment:
+    layer: motivation_strategy
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, confidence, rationale, priority, tags]
+    description: Interpreted view of the current state or implications of a driver.
+
+  Goal:
+    layer: motivation_strategy
+    status_profile: change_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, priority, target_value, owner_team, tags]
+    description: Desired state to be achieved.
+
+  Outcome:
+    layer: motivation_strategy
+    status_profile: change_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, metric_definition, target_value, current_value, owner_team, tags]
+    description: Measurable result for business or user value.
+
+  Principle:
+    layer: motivation_strategy
+    status_profile: governance_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, rationale, tags]
+    description: Durable rule guiding decisions and solution choices.
+
+  CourseOfAction:
+    layer: motivation_strategy
+    status_profile: change_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, rationale, priority, tags]
+    description: Strategic approach or plan adopted to pursue goals.
+
+  ValueStream:
+    layer: motivation_strategy
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, owner_team, tags]
+    description: End-to-end flow that creates value for a stakeholder.
+
+  Capability:
+    layer: motivation_strategy
+    status_profile: change_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, priority, owner_team, tags]
+    description: Ability the organization or product must possess.
+
+  Market:
+    layer: discovery
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, tags]
+    description: Market or submarket classification.
+
+  Segment:
+    layer: discovery
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, priority, tags]
+    description: Customer segment or ideal customer profile slice.
+
+  Competitor:
+    layer: discovery
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, source_uri, tags]
+    description: Existing competing or substitute offering.
+
+  Persona:
+    layer: product_definition
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, tags]
+    description: Modeled actor or user archetype.
+
+  Job:
+    layer: product_definition
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, user_impact, tags]
+    description: JTBD-style customer job.
+
+  Opportunity:
+    layer: product_definition
+    status_profile: change_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, business_impact, user_impact, confidence, priority, tags]
+    description: Valuable problem space worth pursuing.
+
+  KPI:
+    layer: product_definition
+    status_profile: knowledge_record
+    required_properties: [id, title, status, metric_definition]
+    optional_properties: [summary, target_value, current_value, metric_kind, tags]
+    description: Metric used to measure outcomes and progress.
+
+  Feature:
+    layer: product_definition
+    status_profile: change_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, priority, user_impact, tags]
+    description: Customer-visible or operator-visible capability slice.
+
+  Policy:
+    layer: governance
+    status_profile: governance_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, rationale, data_classification, retention_policy, tags]
+    description: Business, security, or operational rule.
+
+  ReleaseGoal:
+    layer: product_definition
+    status_profile: change_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, target_value, priority, tags]
+    description: Goal for a particular release slice or milestone.
+
+  Requirement:
+    layer: requirements
+    status_profile: requirement_record
+    required_properties: [id, title, status, requirement_kind]
+    optional_properties: [summary, rationale, priority, risk_level, tags]
+    description: Testable expression of needed behavior or constraint.
+
+  Constraint:
+    layer: requirements
+    status_profile: governance_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, rationale, risk_level, tags]
+    description: Limitation imposed by policy, technology, contracts, or regulation.
+
+  AcceptanceCriterion:
+    layer: requirements
+    status_profile: requirement_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, expression, tags]
+    description: Concrete condition that must be satisfied for acceptance.
+
+  Risk:
+    layer: requirements
+    status_profile: change_record
+    required_properties: [id, title, status, risk_level]
+    optional_properties: [summary, rationale, blast_radius, tags]
+    description: Identified downside or uncertainty affecting decisions or implementation.
+
+  BusinessService:
+    layer: architecture
+    status_profile: knowledge_record
+    required_properties: [id, title, status, service_kind]
+    optional_properties: [summary, owner_team, tags]
+    description: Business-facing service exposed to stakeholders.
+
+  ApplicationService:
+    layer: architecture
+    status_profile: knowledge_record
+    required_properties: [id, title, status, service_kind]
+    optional_properties: [summary, owner_team, tags]
+    description: Application-layer behavior realized by software services.
+
+  TechnologyService:
+    layer: architecture
+    status_profile: knowledge_record
+    required_properties: [id, title, status, service_kind]
+    optional_properties: [summary, owner_team, tags]
+    description: Platform or infrastructure capability supporting applications.
+
+  BoundedContext:
+    layer: architecture
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, owner_team, tags]
+    description: Domain-driven design boundary with a specific language and model.
+
+  Service:
+    layer: architecture
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, owner_team, tags]
+    description: Deployable or logical service that exposes behavior and data access.
+
+  Component:
+    layer: architecture
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, owner_team, tags]
+    description: Structural unit inside a service or application.
+
+  API:
+    layer: architecture
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, version, external_ref, tags]
+    description: Interface contract for synchronous or asynchronous interaction.
+
+  Event:
+    layer: architecture
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, version, external_ref, tags]
+    description: Domain or integration event definition.
+
+  DataEntity:
+    layer: architecture
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, data_classification, retention_policy, tags]
+    description: Logical data object or schema entity.
+
+  Workflow:
+    layer: architecture
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, owner_team, tags]
+    description: Process flow, orchestration, or sequence across components and services.
+
+  ADR:
+    layer: architecture
+    status_profile: decision_record
+    required_properties: [id, title, status, rationale]
+    optional_properties: [summary, owner, tags]
+    description: Architecture decision record.
+
+  Environment:
+    layer: architecture
+    status_profile: knowledge_record
+    required_properties: [id, title, status, environment_kind]
+    optional_properties: [summary, owner_team, tags]
+    description: Runtime or delivery environment.
+
+  Epic:
+    layer: delivery_migration
+    status_profile: change_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, priority, owner_team, tags]
+    description: Large delivery initiative decomposed into stories.
+
+  Story:
+    layer: delivery_migration
+    status_profile: change_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, priority, owner_team, tags]
+    description: Deliverable user or operator slice decomposed into work packages.
+
+  WorkPackage:
+    layer: delivery_migration
+    status_profile: work_package_record
+    required_properties: [id, title, status, work_package_type, objective]
+    optional_properties:
+      - summary
+      - scope
+      - inputs
+      - outputs
+      - constraints
+      - acceptance_checks
+      - risk_level
+      - autonomy_level
+      - estimated_effort
+      - required_tools
+      - required_permissions
+      - allowed_tools
+      - forbidden_actions
+      - escalation_rules
+      - owner
+      - tags
+    description: Atomic unit of autonomous execution.
+
+  Task:
+    layer: delivery_migration
+    status_profile: work_package_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, owner, priority, tags]
+    description: Subtask within a work package.
+
+  Deliverable:
+    layer: delivery_migration
+    status_profile: change_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, artifact_kind, version, tags]
+    description: Formal output produced by a work package.
+
+  Gap:
+    layer: delivery_migration
+    status_profile: change_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, rationale, priority, tags]
+    description: Difference between current and target state.
+
+  Plateau:
+    layer: delivery_migration
+    status_profile: change_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, version, tags]
+    description: Stable current or target architecture state.
+
+  Artifact:
+    layer: delivery_migration
+    status_profile: knowledge_record
+    required_properties: [id, title, status, artifact_kind]
+    optional_properties: [summary, external_ref, version, tags]
+    description: Produced asset such as code, spec, config, schema, or runbook.
+
+  TestCase:
+    layer: delivery_migration
+    status_profile: requirement_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, external_ref, tags]
+    description: Individual executable or manual verification case.
+
+  TestSuite:
+    layer: delivery_migration
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, external_ref, tags]
+    description: Collection of test cases.
+
+  Agent:
+    layer: delivery_migration
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, allowed_tools, required_permissions, tags]
+    description: Human or machine executor with bounded capabilities.
+
+  Review:
+    layer: delivery_migration
+    status_profile: review_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, owner, rationale, tags]
+    description: Formal verification or approval activity.
+
+  Gate:
+    layer: delivery_migration
+    status_profile: review_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, expression, tags]
+    description: Binary or graded quality gate used before progression.
+
+  Release:
+    layer: operations_learning
+    status_profile: release_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, version, owner_team, tags]
+    description: Deployable product state.
+
+  Deployment:
+    layer: operations_learning
+    status_profile: change_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, external_ref, owner_team, tags]
+    description: Realized deployment of a release into an environment.
+
+  Metric:
+    layer: operations_learning
+    status_profile: knowledge_record
+    required_properties: [id, title, status, metric_kind, metric_definition]
+    optional_properties: [summary, formula, current_value, tags]
+    description: Measurable indicator used in product, engineering, reliability, security, or cost analysis.
+
+  SLI:
+    layer: operations_learning
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, expression, current_value, tags]
+    description: Service level indicator derived from one or more metrics.
+
+  SLO:
+    layer: operations_learning
+    status_profile: governance_record
+    required_properties: [id, title, status, target_value]
+    optional_properties: [summary, threshold, rationale, tags]
+    description: Target for service level performance.
+
+  Alert:
+    layer: operations_learning
+    status_profile: change_record
+    required_properties: [id, title, status, threshold]
+    optional_properties: [summary, priority, tags]
+    description: Operational alert definition.
+
+  Incident:
+    layer: operations_learning
+    status_profile: incident_record
+    required_properties: [id, title, status, risk_level]
+    optional_properties: [summary, blast_radius, owner_team, tags]
+    description: Service-impacting event or degradation.
+
+  Runbook:
+    layer: operations_learning
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, external_ref, version, tags]
+    description: Procedural guidance for operations and recovery.
+
+  CostItem:
+    layer: operations_learning
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, current_value, owner_team, tags]
+    description: Cost allocation or unit economics line item.
+
+  Postmortem:
+    layer: operations_learning
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, rationale, owner_team, tags]
+    description: Structured analysis of an incident or failure.
+
+  ApprovalPolicy:
+    layer: governance
+    status_profile: governance_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, rationale, expression, tags]
+    description: Rule that determines when human or automated approval is required.
+
+  ComplianceRequirement:
+    layer: governance
+    status_profile: governance_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, rationale, source_uri, tags]
+    description: External or internal compliance obligation.
+
+  Control:
+    layer: governance
+    status_profile: governance_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, rationale, expression, tags]
+    description: Verifiable control applied to work, code, systems, or operations.
+
+  AuditRecord:
+    layer: governance
+    status_profile: knowledge_record
+    required_properties: [id, title, status]
+    optional_properties: [summary, source_uri, collected_at, collector, tags]
+    description: Auditable trace of a decision, action, review, or release event.
+
+edge_types:
+  CONTAINS:
+    allowed_from: [Source, TestSuite]
+    allowed_to: [Document, TestCase]
+    description: Parent container relationship.
+
+  YIELDS:
+    allowed_from: [Document]
+    allowed_to: [Signal]
+    description: Extracted observation from a document.
+
+  SUPPORTS:
+    allowed_from: [Signal, Evidence]
+    allowed_to: [Evidence, Claim]
+    description: Positive evidentiary support.
+
+  CONTRADICTS:
+    allowed_from: [Evidence]
+    allowed_to: [Claim]
+    description: Negative evidentiary relationship.
+
+  INFORMS:
+    allowed_from: [Signal]
+    allowed_to: [Assessment]
+    description: Raw signal informing an assessment.
+
+  BASED_ON:
+    allowed_from: [Assessment, Decision, ADR]
+    allowed_to: [Evidence, Claim, Assumption]
+    description: Reasoning grounded in supporting material.
+
+  TESTED_BY:
+    allowed_from: [Assumption]
+    allowed_to: [Experiment]
+    description: Assumption validated through experiment.
+
+  PRODUCES:
+    allowed_from: [Experiment, WorkPackage, Artifact]
+    allowed_to: [Result, Deliverable, Release]
+    description: Produces a downstream result or asset.
+
+  UPDATES:
+    allowed_from: [Result, Deliverable, Postmortem]
+    allowed_to: [Claim, Assessment, Artifact, Requirement, Decision]
+    description: Updates the state or understanding of another object.
+
+  RESOLVES:
+    allowed_from: [Decision]
+    allowed_to: [Assumption, Risk]
+    description: Decision resolves uncertainty or risk.
+
+  ASSESSED_BY:
+    allowed_from: [Driver]
+    allowed_to: [Assessment]
+    description: Driver interpreted through assessment.
+
+  INFLUENCES:
+    allowed_from: [Driver, Assessment]
+    allowed_to: [Goal]
+    description: Motivation impacts the goals selected.
+
+  REALIZED_BY:
+    allowed_from: [Goal, BusinessService, ApplicationService]
+    allowed_to: [Outcome, ApplicationService, Service]
+    description: Higher-level intent or service realized by lower-level elements or outcomes.
+
+  GUIDES:
+    allowed_from: [Principle]
+    allowed_to: [Decision, ADR, WorkPackage]
+    description: Principle guides a choice or implementation.
+
+  PURSUES:
+    allowed_from: [CourseOfAction, Opportunity]
+    allowed_to: [Goal, Outcome]
+    description: Strategic pursuit of goals or outcomes.
+
+  CREATES:
+    allowed_from: [ValueStream, Decision, Postmortem]
+    allowed_to: [Outcome, Requirement, WorkPackage]
+    description: Creates a target result or downstream work.
+
+  USES:
+    allowed_from: [ValueStream, Workflow]
+    allowed_to: [Capability, API]
+    description: Consumption of a capability or interface.
+
+  HAS_JOB:
+    allowed_from: [Segment]
+    allowed_to: [Job]
+    description: Segment is associated with a job to be done.
+
+  SEEKS:
+    allowed_from: [Job]
+    allowed_to: [Outcome]
+    description: Job seeks a desired outcome.
+
+  TARGETS:
+    allowed_from: [Opportunity, ReleaseGoal]
+    allowed_to: [Segment, Outcome]
+    description: Focus of an opportunity or release goal.
+
+  ADDRESSES:
+    allowed_from: [Opportunity, Feature]
+    allowed_to: [Job, Requirement]
+    description: Addresses a customer job or requirement.
+
+  REALIZES:
+    allowed_from: [Capability, Deliverable]
+    allowed_to: [Outcome, Plateau]
+    description: Capability realizes an outcome; deliverable realizes a target state.
+
+  IMPLEMENTS:
+    allowed_from: [Feature, WorkPackage]
+    allowed_to: [Capability, Requirement]
+    description: Implements a capability or requirement.
+
+  MEASURES:
+    allowed_from: [KPI, Metric]
+    allowed_to: [Outcome, Service]
+    description: Measurement relationship.
+
+  CONSTRAINS:
+    allowed_from: [Policy, ApprovalPolicy, ComplianceRequirement]
+    allowed_to: [Feature, WorkPackage, Requirement, Service]
+    description: Policy or compliance limitation.
+
+  DRIVES:
+    allowed_from: [Goal]
+    allowed_to: [Requirement]
+    description: Goal translated into requirement intent.
+
+  HAS_ACCEPTANCE:
+    allowed_from: [Requirement]
+    allowed_to: [AcceptanceCriterion]
+    description: Requirement-level acceptance criteria.
+
+  LIMITS:
+    allowed_from: [Constraint]
+    allowed_to: [Requirement, WorkPackage]
+    description: Constraint limiting allowed solution space.
+
+  ALLOCATED_TO:
+    allowed_from: [Requirement]
+    allowed_to: [BusinessService, ApplicationService, Component]
+    description: Requirement allocated to architecture elements.
+
+  SERVED_BY:
+    allowed_from: [Capability]
+    allowed_to: [BusinessService]
+    description: Capability delivered through a business service.
+
+  SUPPORTED_BY:
+    allowed_from: [Service]
+    allowed_to: [TechnologyService]
+    description: Application service supported by platform capability.
+
+  EXPOSES:
+    allowed_from: [Service]
+    allowed_to: [API]
+    description: Service exposes an interface.
+
+  EMITS:
+    allowed_from: [Service]
+    allowed_to: [Event]
+    description: Service publishes an event.
+
+  READS:
+    allowed_from: [Service]
+    allowed_to: [DataEntity]
+    description: Service reads a logical data entity.
+
+  WRITES:
+    allowed_from: [Service]
+    allowed_to: [DataEntity]
+    description: Service writes a logical data entity.
+
+  DECOMPOSED_INTO:
+    allowed_from: [Feature, Epic, Story, WorkPackage]
+    allowed_to: [Epic, Story, WorkPackage, Task]
+    description: Hierarchical work decomposition.
+
+  ADDRESSED_BY:
+    allowed_from: [Gap]
+    allowed_to: [WorkPackage]
+    description: Gap is closed by one or more work packages.
+
+  DEPENDS_ON:
+    allowed_from: [WorkPackage, Task, Release]
+    allowed_to: [WorkPackage, Task, Release]
+    description: Dependency relation.
+
+  CHANGES:
+    allowed_from: [WorkPackage]
+    allowed_to: [Artifact, API, Event, DataEntity, Service, Component]
+    description: Work package modifies a concrete artifact or architecture element.
+
+  ASSIGNED_TO:
+    allowed_from: [WorkPackage, Review]
+    allowed_to: [Agent]
+    description: Execution assignment.
+
+  VERIFIED_BY:
+    allowed_from: [WorkPackage, Requirement]
+    allowed_to: [Review, TestCase, Gate]
+    description: Verification relationship.
+
+  VERIFIES:
+    allowed_from: [TestCase, Control]
+    allowed_to: [AcceptanceCriterion, Requirement, WorkPackage]
+    description: Test or control verifies compliance or correctness.
+
+  UPDATES_TO:
+    allowed_from: [Deliverable]
+    allowed_to: [Artifact]
+    description: Deliverable updates a persistent artifact.
+
+  SUPERSEDES:
+    allowed_from: [Decision, ADR, Plateau, Document]
+    allowed_to: [Decision, ADR, Plateau, Document]
+    description: Newer object supersedes an older one.
+
+  DEPLOYED_AS:
+    allowed_from: [Release]
+    allowed_to: [Deployment]
+    description: Release realized as a deployment.
+
+  RUNS_IN:
+    allowed_from: [Deployment]
+    allowed_to: [Environment]
+    description: Deployment environment relation.
+
+  DERIVED_FROM:
+    allowed_from: [SLI, Requirement, Claim, Deliverable]
+    allowed_to: [Metric, Evidence, Requirement, Artifact]
+    description: Derived or transformed from another object.
+
+  SETS_TARGET_FOR:
+    allowed_from: [SLO]
+    allowed_to: [SLI]
+    description: SLO target for an SLI.
+
+  FIRES_ON:
+    allowed_from: [Alert]
+    allowed_to: [Metric, SLI]
+    description: Alert bound to an operational signal.
+
+  AFFECTS:
+    allowed_from: [Incident]
+    allowed_to: [Service, Feature, Segment]
+    description: Incident impact surface.
+
+  TRIGGERED_BY:
+    allowed_from: [Incident]
+    allowed_to: [Deployment, Alert]
+    description: Immediate trigger relation.
+
+  ANALYZES:
+    allowed_from: [Postmortem]
+    allowed_to: [Incident]
+    description: Postmortem analysis target.
+
+  ATTRIBUTED_TO:
+    allowed_from: [CostItem]
+    allowed_to: [Service, Feature, Segment]
+    description: Cost attribution.
+
+  APPLIES_TO:
+    allowed_from: [Control]
+    allowed_to: [WorkPackage, Artifact, Service, Release]
+    description: Control application scope.
+
+  CITES:
+    allowed_from: [AuditRecord]
+    allowed_to: [Decision, WorkPackage, Review, Release, Incident]
+    description: Audit trail citation.
+
+validation_rules:
+  - id: VR-001
+    description: Every Claim should be supported by at least one Evidence node.
+    expression: "Claim <-[:SUPPORTS]- Evidence >= 1"
+
+  - id: VR-002
+    description: Every Goal should be influenced by a Driver or Assessment.
+    expression: "Goal <-[:INFLUENCES]- (Driver|Assessment) >= 1"
+
+  - id: VR-003
+    description: Every Requirement should have at least one AcceptanceCriterion.
+    expression: "Requirement -[:HAS_ACCEPTANCE]-> AcceptanceCriterion >= 1"
+
+  - id: VR-004
+    description: Every Requirement should trace to either a Goal or a Decision.
+    expression: "Requirement <-[:DRIVES]- Goal OR Requirement <-[:CREATES]- Decision"
+
+  - id: VR-005
+    description: Every WorkPackage should implement at least one Requirement or address at least one Gap.
+    expression: "WorkPackage -[:IMPLEMENTS]-> Requirement >= 1 OR WorkPackage <-[:ADDRESSED_BY]- Gap >= 1"
+
+  - id: VR-006
+    description: Every WorkPackage with autonomy above assistive must define acceptance checks and allowed tools.
+    expression: "if WorkPackage.autonomy_level in [drafting, bounded_execution, managed_autonomy] then acceptance_checks != null and allowed_tools != null"
+
+  - id: VR-007
+    description: Every Deliverable should be produced by exactly one WorkPackage.
+    expression: "Deliverable <-[:PRODUCES]- WorkPackage = 1"
+
+  - id: VR-008
+    description: Every Release should trace back to at least one Deliverable or Artifact.
+    expression: "Release <-[:PRODUCES]- Artifact >= 1 OR Release <-[:DEPLOYED_AS]- Deployment >= 1"
+
+  - id: VR-009
+    description: Every Incident in reviewed state should have a Postmortem or explicit waiver.
+    expression: "if Incident.status = reviewed then Incident <-[:ANALYZES]- Postmortem >= 1 OR Incident.tags contains 'postmortem-waived'"
+
+  - id: VR-010
+    description: Every production Deployment should run in an Environment tagged production.
+    expression: "Deployment -[:RUNS_IN]-> Environment where Environment.environment_kind = production"
