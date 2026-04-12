@@ -1,0 +1,207 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.11/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": true
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "lineWidth": 100
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["src/**/*.ts", "src/**/*.mjs"],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "useArrowFunction": "error"
+          },
+          "correctness": {
+            "noUnusedImports": "error",
+            "noUnusedVariables": "error"
+          },
+          "nursery": {
+            "noFloatingPromises": "error"
+          },
+          "style": {
+            "noDefaultExport": "error",
+            "useFilenamingConvention": {
+              "level": "error",
+              "options": {
+                "filenameCases": ["kebab-case"],
+                "requireAscii": true,
+                "strictCase": true
+              }
+            },
+            "useImportType": "error",
+            "useNamingConvention": {
+              "level": "error",
+              "options": {
+                "conventions": [
+                  {
+                    "selector": {
+                      "kind": "typeLike"
+                    },
+                    "formats": ["PascalCase"]
+                  },
+                  {
+                    "selector": {
+                      "kind": "enumMember"
+                    },
+                    "formats": ["PascalCase"]
+                  },
+                  {
+                    "selector": {
+                      "kind": "typeParameter"
+                    },
+                    "formats": ["PascalCase"]
+                  },
+                  {
+                    "selector": {
+                      "kind": "const",
+                      "scope": "global"
+                    },
+                    "formats": ["camelCase", "CONSTANT_CASE"]
+                  },
+                  {
+                    "selector": {
+                      "kind": "function"
+                    },
+                    "formats": ["camelCase"]
+                  },
+                  {
+                    "selector": {
+                      "kind": "const"
+                    },
+                    "formats": ["camelCase"]
+                  },
+                  {
+                    "selector": {
+                      "kind": "variable"
+                    },
+                    "formats": ["camelCase"]
+                  },
+                  {
+                    "selector": {
+                      "kind": "functionParameter"
+                    },
+                    "formats": ["camelCase"]
+                  },
+                  {
+                    "selector": {
+                      "kind": "classMember"
+                    },
+                    "formats": ["camelCase"]
+                  },
+                  {
+                    "selector": {
+                      "kind": "objectLiteralProperty"
+                    },
+                    "formats": ["camelCase"]
+                  },
+                  {
+                    "selector": {
+                      "kind": "typeMember"
+                    },
+                    "formats": ["camelCase"]
+                  }
+                ],
+                "requireAscii": true,
+                "strictCase": true
+              }
+            },
+            "useNodejsImportProtocol": "error"
+          },
+          "suspicious": {
+            "noConsole": "error",
+            "noExplicitAny": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/index.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/lib/config.ts", "src/lib/worker-client.ts"],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "useLiteralKeys": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["test/**/*.ts", "test/**/*.mjs"],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "useLiteralKeys": "off"
+          },
+          "correctness": {
+            "noUnusedImports": "warn",
+            "noUnusedVariables": "warn"
+          },
+          "nursery": {
+            "noFloatingPromises": "warn"
+          },
+          "style": {
+            "noDefaultExport": "off",
+            "useFilenamingConvention": {
+              "level": "error",
+              "options": {
+                "filenameCases": ["kebab-case"],
+                "requireAscii": true,
+                "strictCase": true
+              }
+            },
+            "useNamingConvention": {
+              "level": "error",
+              "options": {
+                "requireAscii": true,
+                "strictCase": true
+              }
+            },
+            "useNodejsImportProtocol": "error"
+          },
+          "suspicious": {
+            "noConsole": "off",
+            "noExplicitAny": "warn"
+          }
+        }
+      }
+    }
+  ],
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  }
+}

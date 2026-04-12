@@ -1,4 +1,4 @@
-import readline from "node:readline";
+import readline from 'node:readline';
 
 function send(message) {
   process.stdout.write(`${JSON.stringify(message)}\n`);
@@ -10,26 +10,26 @@ const rl = readline.createInterface({
 });
 
 send({
-  type: "ready",
+  type: 'ready',
   ok: true,
   pid: process.pid,
-  note: "Product Copilot Ladybug worker scaffold is ready.",
+  note: 'Product Copilot Ladybug worker scaffold is ready.',
 });
 
-rl.on("line", (line) => {
+rl.on('line', (line) => {
   let message;
   try {
     message = JSON.parse(line);
   } catch (error) {
     send({
       ok: false,
-      error: "invalid_json",
+      error: 'invalid_json',
       details: String(error),
     });
     return;
   }
 
-  if (message.type === "ping") {
+  if (message.type === 'ping') {
     send({
       id: message.id,
       ok: true,
@@ -41,14 +41,14 @@ rl.on("line", (line) => {
     return;
   }
 
-  if (message.type === "describe") {
+  if (message.type === 'describe') {
     send({
       id: message.id,
       ok: true,
       result: {
         pid: process.pid,
         cwd: process.cwd(),
-        note: "Scaffold worker only. LadybugDB ownership is not wired yet.",
+        note: 'Scaffold worker only. LadybugDB ownership is not wired yet.',
       },
     });
     return;
