@@ -94,6 +94,15 @@ For detailed integration notes, see:
 - `07-ladybugdb-query-patterns.cypher`
 - `../../skills/ladybugdb/`
 
+A repo-local smoke loader is also available in `../../packages/product-copilot/`:
+
+```bash
+cd packages/product-copilot
+npm run smoke:load
+```
+
+That helper uses `@ladybugdb/core` directly to apply the current schema and sample data to the configured `.lbug` file.
+
 Archived Neo4j and Memgraph comparison assets now live under `archive/`; they are retained for portability/reference work only.
 
 ## Companion skills

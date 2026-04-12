@@ -19,15 +19,15 @@ Included now:
 - a tiny JSON-lines worker scaffold in `src/worker/ladybug-worker.mjs`
 - a minimal `WorkerClient` in `src/lib/worker-client.ts`
 - one read-only diagnostic command and one read-only diagnostic tool
+- a LadybugDB smoke-load helper that applies the current Product Copilot schema and sample data
 - native Node test runner setup via `node:test` + `tsx`
 - strict validation and agent conventions for package-local work
 
 Not included yet:
 
-- LadybugDB ownership / connection lifecycle
-- graph schema bootstrap
-- Product Copilot query tools
-- ingestion tools
+- LadybugDB ownership / connection lifecycle wired into the extension runtime
+- Product Copilot query tools exposed through pi
+- ingestion tools beyond the local smoke fixture loader
 - worker process management wired into the pi extension runtime
 
 ## Folder layout
@@ -86,6 +86,7 @@ Main scripts:
 
 - `npm run format` — apply Biome formatting and safe fixes
 - `npm run lint` — strict Biome checks with warnings treated as failures
+- `npm run smoke:load` — create/reset a LadybugDB file and apply the current Product Copilot schema + sample data
 - `npm run typecheck:src` — strict TypeScript validation for `src/`
 - `npm run typecheck:test` — slightly more lenient TypeScript validation for `test/`
 - `npm run test` — run tests with the native Node test runner through `tsx`
@@ -121,6 +122,30 @@ Optional environment variables:
 
 - `PRODUCT_COPILOT_DB_PATH` — override the database path
 - `PRODUCT_COPILOT_MODE` — `direct` or `worker` (default: `direct`)
+
+## Smoke-load the local LadybugDB fixture
+
+The package includes a tiny smoke loader that uses `@ladybugdb/core` directly and applies the active Product Copilot research assets from `../../research/product-copilot/`:
+
+- `06-ladybugdb-schema.cypher`
+- `08-ladybugdb-sample-data.cypher`
+
+Run it with the default configured database path:
+
+```bash
+cd packages/product-copilot
+npm run smoke:load
+```
+
+Useful options:
+
+```bash
+npm run smoke:load -- --db ./.pi/state/product-copilot/dev-smoke.lbug
+npm run smoke:load -- --no-sample-data
+npm run smoke:load -- --no-reset
+```
+
+This is intentionally a repo-local convenience layer for prototyping. It is not yet the same thing as the eventual extension runtime bootstrap path.
 
 ## Why the worker scaffold exists already
 

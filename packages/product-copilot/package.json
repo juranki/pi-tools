@@ -9,6 +9,7 @@
     "clean": "echo 'Nothing to clean yet.'",
     "format": "biome check --write .",
     "lint": "biome check . --error-on-warnings",
+    "smoke:load": "tsx src/scripts/smoke-load.ts",
     "typecheck:src": "tsc -p tsconfig.json",
     "typecheck:test": "tsc -p tsconfig.test.json",
     "typecheck": "npm run typecheck:src && npm run typecheck:test",
