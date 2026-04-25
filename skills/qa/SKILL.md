@@ -109,13 +109,11 @@ tags:
 ---
 ```
 
-Then use a body shaped like this.
+Then use a body shaped like this. Do not put title heading in the body, file name is the title.
 
 #### Issue note template
 
 ```md
-# Issue - <Short Title>
-
 ## What happened
 
 ## What I expected
@@ -134,8 +132,6 @@ Then use a body shaped like this.
 #### Action note template
 
 ```md
-# Action - <Short Title>
-
 ## Outcome wanted
 
 ## Current context
@@ -151,8 +147,6 @@ Then use a body shaped like this.
 #### Decision note template
 
 ```md
-# Decision - <Short Title>
-
 ## Decision to make or record
 
 ## Context
