@@ -30,6 +30,7 @@ The target system has three major capabilities:
 - `09-agent-tooling.md` — recommended tool surface for safe agent access to the graph, updated for LadybugDB-first execution
 - `10-human-visualizations.md` — visualization catalog for human-facing product, delivery, and operations views
 - `11-ladybugdb-evaluation.md` — decision basis and implementation guidance for adopting LadybugDB as the current default backend
+- `12-graph-accumulation-vision.md` — product vision for how Product Copilot should accumulate and curate graph state over time, not only query it
 - `archive/README.md` — archived Neo4j and Memgraph comparison assets retained for portability/reference work
 
 ## Recommended framing
