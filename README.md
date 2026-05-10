@@ -18,6 +18,7 @@ Included today:
 
 | Skill | Purpose |
 | --- | --- |
+| [`datastar-micro-saas`](./skills/datastar-micro-saas/) | Opinionated guidance for applying Data-Star idiomatically in Bun + Hono micro-SaaS pilots without drifting into JSON-first or SPA habits. |
 | [`ladybugdb`](./skills/ladybugdb/) | Guidance for evaluating, modeling, querying, and integrating LadybugDB in local-first and embedded workflows. |
 | [`product-copilot-graph-analysis`](./skills/product-copilot-graph-analysis/) | Bounded Memgraph/openCypher retrieval and explanation for the Product Copilot knowledge graph. |
 | [`product-copilot-visualization-design`](./skills/product-copilot-visualization-design/) | Design guidance for human-facing graph views, dashboards, and reporting layouts. |
@@ -62,6 +63,7 @@ Start with [`research/product-copilot/README.md`](./research/product-copilot/REA
 ├── research/
 │   └── product-copilot/
 └── skills/
+    ├── datastar-micro-saas/
     ├── ladybugdb/
     ├── product-copilot-graph-analysis/
     ├── product-copilot-visualization-design/
